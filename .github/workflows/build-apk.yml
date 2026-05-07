@@ -7,6 +7,8 @@ jobs:
   build-apk:
     name: Build Debug APK
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout Repository
@@ -49,8 +51,14 @@ jobs:
           chmod +x gradlew
           ./gradlew assembleDebug
 
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
+      - name: Get version
+        id: version
+        run: echo "tag=v$(date +%Y%m%d-%H%M)" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
         with:
-          name: usque-vpn-debug
-          path: android/usque-vpn/app/build/outputs/apk/debug/*.apk
+          tag_name: ${{ steps.version.outputs.tag }}
+          name: "Usque VPN Debug ${{ steps.version.outputs.tag }}"
+          files: android/usque-vpn/app/build/outputs/apk/debug/*.apk
+          generate_release_notes: true
