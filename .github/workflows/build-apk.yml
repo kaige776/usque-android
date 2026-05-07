@@ -65,14 +65,21 @@ jobs:
           chmod +x gradlew
           ./gradlew assembleDebug
 
-      - name: Get version
+      - name: Get version and rename APK
         id: version
-        run: echo "tag=v$(date +%Y%m%d-%H%M)" >> $GITHUB_OUTPUT
+        run: |
+          TAG="v$(date +%Y%m%d-%H%M)"
+          VERSION=$(grep 'versionName' android/usque-vpn/app/build.gradle.kts | sed 's/.*"\(.*\)".*/\1/')
+          APK_SRC="android/usque-vpn/app/build/outputs/apk/debug/app-debug.apk"
+          APK_DST="android/usque-vpn/app/build/outputs/apk/debug/Usque-${VERSION}-${TAG}.apk"
+          mv "$APK_SRC" "$APK_DST"
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "apk_name=Usque-${VERSION}-${TAG}.apk" >> $GITHUB_OUTPUT
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.version.outputs.tag }}
-          name: "Usque VPN Debug ${{ steps.version.outputs.tag }}"
+          name: "Usque VPN ${{ steps.version.outputs.tag }}"
           files: android/usque-vpn/app/build/outputs/apk/debug/*.apk
           generate_release_notes: true

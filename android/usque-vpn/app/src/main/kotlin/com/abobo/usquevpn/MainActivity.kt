@@ -340,7 +340,7 @@ class MainActivity : Activity() {
             updateSelectedCount()
         }
 
-        AlertDialog.Builder(this, R.style.Theme_UsqueVpn_Dialog)
+        val dialog = AlertDialog.Builder(this, R.style.Theme_UsqueVpn_Dialog)
             .setTitle(R.string.app_picker_title)
             .setView(dialogView)
             .setPositiveButton(R.string.settings_save) { _, _ ->
@@ -354,7 +354,12 @@ class MainActivity : Activity() {
                 }
             }
             .setNegativeButton(R.string.settings_cancel, null)
-            .show()
+            .create()
+        dialog.show()
+        dialog.window?.setLayout(
+            android.view.WindowManager.LayoutParams.MATCH_PARENT,
+            (resources.displayMetrics.heightPixels * 0.85).toInt()
+        )
     }
 
     private fun showSettingsDialog() {
