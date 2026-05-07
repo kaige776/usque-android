@@ -3,14 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="24dp">
+    android:padding="24dp"
+    android:background="@color/bg_primary">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/settings_sni_label"
-        android:textSize="14sp"
-        android:textColor="#aaaaaa"
+        android:textSize="13sp"
+        android:textColor="@color/text_secondary"
         android:layout_marginBottom="8dp" />
 
     <EditText
@@ -18,9 +19,9 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:hint="@string/settings_sni_hint"
-        android:textSize="16sp"
-        android:textColor="#ffffff"
-        android:textColorHint="#666666"
+        android:textSize="15sp"
+        android:textColor="@color/text_primary"
+        android:textColorHint="@color/text_dim"
         android:background="@drawable/card_background"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
@@ -31,8 +32,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/settings_endpoint_label"
-        android:textSize="14sp"
-        android:textColor="#aaaaaa"
+        android:textSize="13sp"
+        android:textColor="@color/text_secondary"
         android:layout_marginBottom="8dp" />
 
     <EditText
@@ -40,9 +41,9 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:hint="@string/settings_endpoint_hint"
-        android:textSize="16sp"
-        android:textColor="#ffffff"
-        android:textColorHint="#666666"
+        android:textSize="15sp"
+        android:textColor="@color/text_primary"
+        android:textColorHint="@color/text_dim"
         android:background="@drawable/card_background"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
@@ -52,7 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/settings_endpoint_format"
-        android:textSize="12sp"
-        android:textColor="#666666"
-        android:layout_marginTop="8dp" />
+        android:textSize="11sp"
+        android:textColor="@color/text_dim"
+        android:layout_marginTop="10dp" />
 </LinearLayout>

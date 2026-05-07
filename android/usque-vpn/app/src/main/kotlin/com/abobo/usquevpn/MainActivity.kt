@@ -44,6 +44,7 @@ class MainActivity : Activity() {
 
     private lateinit var prefs: SharedPreferences
     private lateinit var statusText: TextView
+    private lateinit var statusDot: View
     private lateinit var connectButton: Button
     private lateinit var ipInfoText: TextView
     private lateinit var settingsButton: Button
@@ -72,6 +73,7 @@ class MainActivity : Activity() {
         prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
         statusText = findViewById(R.id.status_text)
+        statusDot = findViewById(R.id.status_dot)
         connectButton = findViewById(R.id.connect_button)
         ipInfoText = findViewById(R.id.ip_info_text)
         settingsButton = findViewById(R.id.settings_button)
@@ -129,7 +131,6 @@ class MainActivity : Activity() {
                 val newLang = langCodes[which]
                 if (newLang != currentLang) {
                     prefs.edit().putString(KEY_LANGUAGE, newLang).apply()
-                    // Recreate activity with new locale
                     val intent = intent
                     finish()
                     startActivity(intent)
@@ -177,35 +178,86 @@ class MainActivity : Activity() {
             .show()
     }
 
+    /**
+     * Load all installed user apps with proper names.
+     * Uses ApplicationInfo.loadLabel() for reliable name resolution.
+     */
     private fun loadAllApps(): List<AppItem> {
         val pm = packageManager
         val apps = mutableListOf<AppItem>()
-        val intent = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER)
-        val resolveInfos = pm.queryIntentActivities(intent, 0)
+        val seen = mutableSetOf<String>()
 
-        for (ri in resolveInfos) {
-            if (ri.activityInfo.packageName == packageName) continue
-            apps.add(AppItem(
-                name = ri.loadLabel(pm).toString(),
-                packageName = ri.activityInfo.packageName,
-                icon = ri.loadIcon(pm)
-            ))
-        }
+        // Method 1: Get all installed packages (most reliable)
+        val installedPackages = pm.getInstalledPackages(PackageManager.GET_META_DATA)
+        for (pkg in installedPackages) {
+            val appInfo = pkg.applicationInfo ?: continue
+            val pkgName = appInfo.packageName
 
-        val allApps = pm.getInstalledApplications(PackageManager.GET_META_DATA)
-        val existingPkgs = apps.map { it.packageName }.toSet()
-        for (app in allApps) {
-            if (app.packageName == packageName) continue
-            if (app.packageName in existingPkgs) continue
-            if (app.flags and ApplicationInfo.FLAG_SYSTEM != 0) continue
-            apps.add(AppItem(
-                name = app.loadLabel(pm).toString(),
-                packageName = app.packageName,
-                icon = app.loadIcon(pm)
-            ))
+            // Skip self
+            if (pkgName == packageName) continue
+            // Skip already seen
+            if (pkgName in seen) continue
+            // Skip system apps (but keep updated system apps)
+            val isSystem = appInfo.flags and ApplicationInfo.FLAG_SYSTEM != 0
+            val isUpdated = appInfo.flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP != 0
+            if (isSystem && !isUpdated) continue
+
+            seen.add(pkgName)
+
+            // Get app name - try multiple methods
+            val appName = getAppName(pm, appInfo, pkgName)
+
+            try {
+                apps.add(AppItem(
+                    name = appName,
+                    packageName = pkgName,
+                    icon = appInfo.loadIcon(pm)
+                ))
+            } catch (e: Exception) {
+                // Skip apps that fail to load icon
+            }
         }
 
         return apps.sortedBy { it.name.lowercase() }
+    }
+
+    /**
+     * Get human-readable app name using multiple fallback methods.
+     */
+    private fun getAppName(pm: PackageManager, appInfo: ApplicationInfo, pkgName: String): String {
+        // Method 1: ApplicationInfo.loadLabel()
+        try {
+            val label = appInfo.loadLabel(pm).toString().trim()
+            if (label.isNotEmpty() && label != pkgName && !label.contains(".")) {
+                return label
+            }
+        } catch (_: Exception) {}
+
+        // Method 2: PackageInfo.applicationInfo.loadLabel()
+        try {
+            val pkgInfo = pm.getPackageInfo(pkgName, 0)
+            val label = pkgInfo.applicationInfo.loadLabel(pm).toString().trim()
+            if (label.isNotEmpty() && label != pkgName) {
+                return label
+            }
+        } catch (_: Exception) {}
+
+        // Method 3: Launch intent resolver
+        try {
+            val launchIntent = pm.getLaunchIntentForPackage(pkgName)
+            if (launchIntent != null) {
+                val resolveInfo = pm.resolveActivity(launchIntent, 0)
+                if (resolveInfo != null) {
+                    val label = resolveInfo.loadLabel(pm).toString().trim()
+                    if (label.isNotEmpty() && label != pkgName) {
+                        return label
+                    }
+                }
+            }
+        } catch (_: Exception) {}
+
+        // Fallback: Clean up package name
+        return pkgName.substringAfterLast(".").replaceFirstChar { it.uppercase() }
     }
 
     private fun showAppPickerDialog() {
@@ -386,12 +438,14 @@ class MainActivity : Activity() {
 
         if (UsqueVpnService.isRunning) {
             statusText.text = getString(R.string.status_connected)
-            statusText.setTextColor(getColor(android.R.color.holo_green_dark))
+            statusText.setTextColor(getColor(R.color.success))
+            statusDot.setBackgroundResource(R.color.success)
             connectButton.text = getString(R.string.btn_disconnect)
             settingsButton.isEnabled = false
         } else {
             statusText.text = getString(R.string.status_disconnected)
-            statusText.setTextColor(getColor(android.R.color.holo_red_dark))
+            statusText.setTextColor(getColor(R.color.error))
+            statusDot.setBackgroundResource(R.color.error)
             connectButton.text = getString(R.string.btn_connect)
             settingsButton.isEnabled = true
         }
@@ -418,11 +472,11 @@ class MainActivity : Activity() {
         val mode = prefs.getString(KEY_PROXY_MODE, MODE_GLOBAL) ?: MODE_GLOBAL
         if (mode == MODE_GLOBAL) {
             modeText.text = getString(R.string.mode_global_display)
-            modeText.setTextColor(getColor(android.R.color.holo_blue_light))
+            modeText.setTextColor(getColor(R.color.accent_secondary))
         } else {
             val count = (prefs.getStringSet(KEY_ALLOWED_APPS, emptySet()) ?: emptySet()).size
             modeText.text = getString(R.string.mode_per_app_display, count)
-            modeText.setTextColor(getColor(android.R.color.holo_orange_light))
+            modeText.setTextColor(getColor(R.color.accent_primary))
         }
     }
 }

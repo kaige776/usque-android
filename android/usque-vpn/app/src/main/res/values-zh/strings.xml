@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Usque VPN</string>
+    <string name="app_name">Usque</string>
 
     <!-- Main Activity -->
     <string name="status_connected">已连接</string>

@@ -5,31 +5,32 @@
     android:orientation="vertical"
     android:gravity="center"
     android:padding="24dp"
-    android:background="#1a1a2e">
+    android:background="@color/bg_primary">
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:src="@drawable/ic_vpn"
-        android:layout_marginBottom="32dp" />
+        android:layout_marginBottom="20dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textSize="28sp"
+        android:text="Usque"
+        android:textSize="32sp"
         android:textStyle="bold"
-        android:textColor="#ffffff"
-        android:layout_marginBottom="8dp" />
+        android:textColor="@color/text_primary"
+        android:letterSpacing="0.08"
+        android:layout_marginBottom="4dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/subtitle"
-        android:textSize="14sp"
-        android:textColor="#888888"
-        android:layout_marginBottom="32dp" />
+        android:textSize="13sp"
+        android:textColor="@color/text_dim"
+        android:layout_marginBottom="28dp" />
 
     <!-- Status Card -->
     <LinearLayout
@@ -37,162 +38,147 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@drawable/card_background"
-        android:padding="24dp"
+        android:padding="20dp"
         android:layout_marginBottom="16dp">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/label_status"
-            android:textSize="12sp"
-            android:textColor="#888888"
-            android:textAllCaps="true"
-            android:letterSpacing="0.1" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/status_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/status_disconnected"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="#ff6b6b"
-            android:layout_marginTop="4dp" />
+            <View
+                android:id="@+id/status_dot"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:background="@color/error"
+                android:layout_marginEnd="10dp" />
+
+            <TextView
+                android:id="@+id/status_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/status_disconnected"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary" />
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#333333"
+            android:background="@color/divider"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/label_ip"
-            android:textSize="12sp"
-            android:textColor="#888888"
-            android:textAllCaps="true"
-            android:letterSpacing="0.1" />
+            android:layout_marginBottom="14dp" />
 
         <TextView
             android:id="@+id/ip_info_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/label_not_registered"
-            android:textSize="14sp"
-            android:textColor="#ffffff"
-            android:layout_marginTop="4dp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#333333"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp" />
+            android:textSize="13sp"
+            android:textColor="@color/text_secondary" />
 
         <TextView
             android:id="@+id/sni_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            android:textColor="#aaaaaa" />
+            android:textColor="@color/text_dim"
+            android:layout_marginTop="10dp" />
 
         <TextView
             android:id="@+id/endpoint_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            android:textColor="#aaaaaa"
-            android:layout_marginTop="4dp" />
+            android:textColor="@color/text_dim"
+            android:layout_marginTop="3dp" />
 
         <TextView
             android:id="@+id/mode_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            android:layout_marginTop="4dp" />
+            android:layout_marginTop="3dp" />
     </LinearLayout>
 
-    <!-- Buttons Row 1: Mode + Apps -->
+    <!-- Buttons Row 1 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginBottom="8dp">
+        android:layout_marginBottom="10dp">
 
         <Button
             android:id="@+id/mode_button"
             android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:layout_height="46dp"
             android:layout_weight="1"
             android:text="@string/btn_mode"
             android:textSize="13sp"
-            android:textColor="#ffffff"
+            android:textColor="@color/text_primary"
             android:background="@drawable/button_secondary_background"
-            android:layout_marginEnd="4dp" />
+            android:layout_marginEnd="6dp" />
 
         <Button
             android:id="@+id/app_picker_button"
             android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:layout_height="46dp"
             android:layout_weight="1"
             android:text="@string/btn_select_apps"
             android:textSize="13sp"
-            android:textColor="#ffffff"
+            android:textColor="@color/text_primary"
             android:background="@drawable/button_secondary_background"
-            android:layout_marginStart="4dp" />
+            android:layout_marginStart="6dp" />
     </LinearLayout>
 
-    <!-- Buttons Row 2: Language + Settings -->
+    <!-- Buttons Row 2 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center"
         android:layout_marginBottom="16dp">
 
         <Button
             android:id="@+id/language_button"
             android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:layout_height="46dp"
             android:layout_weight="1"
             android:text="@string/btn_language"
             android:textSize="13sp"
-            android:textColor="#ffffff"
+            android:textColor="@color/text_primary"
             android:background="@drawable/button_secondary_background"
-            android:layout_marginEnd="4dp" />
+            android:layout_marginEnd="6dp" />
 
         <Button
             android:id="@+id/settings_button"
             android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:layout_height="46dp"
             android:layout_weight="1"
             android:text="@string/btn_settings"
             android:textSize="13sp"
-            android:textColor="#ffffff"
+            android:textColor="@color/text_primary"
             android:background="@drawable/button_secondary_background"
-            android:layout_marginStart="4dp" />
+            android:layout_marginStart="6dp" />
     </LinearLayout>
 
     <!-- Connect Button -->
     <Button
         android:id="@+id/connect_button"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="54dp"
         android:text="@string/btn_connect"
         android:textSize="16sp"
         android:textStyle="bold"
         android:textColor="#ffffff"
-        android:background="@drawable/button_background"
-        android:layout_marginBottom="16dp" />
+        android:background="@drawable/button_background" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/footer"
-        android:textSize="12sp"
-        android:textColor="#555555"
-        android:layout_marginTop="32dp" />
+        android:textSize="11sp"
+        android:textColor="@color/text_dim"
+        android:layout_marginTop="24dp" />
 </LinearLayout>
