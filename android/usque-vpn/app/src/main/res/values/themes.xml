@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.UsqueVpn" parent="android:Theme.Material.NoActionBar">
-        <item name="android:colorPrimary">#00d4aa</item>
-        <item name="android:colorAccent">#00d4aa</item>
-        <item name="android:statusBarColor">#FF000000</item>
-        <item name="android:navigationBarColor">#FF000000</item>
-        <item name="android:windowBackground">#FF000000</item>
+    <style name="Theme.UsqueVpn" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#6c5ce7</item>
+        <item name="colorPrimaryDark">#5b4cdb</item>
+        <item name="colorAccent">#00cec9</item>
+        <item name="android:statusBarColor">#1a1a2e</item>
+        <item name="android:navigationBarColor">#1a1a2e</item>
+        <item name="android:windowBackground">#1a1a2e</item>
     </style>
 
-    <style name="Theme.UsqueVpn.Dialog" parent="android:Theme.Material.Dialog">
-        <item name="android:colorPrimary">#00d4aa</item>
-        <item name="android:colorAccent">#00d4aa</item>
-        <item name="android:windowBackground">#FF000000</item>
-        <item name="android:background">#FF000000</item>
-        <item name="android:colorBackground">#FF000000</item>
+    <style name="Theme.UsqueVpn.Dialog" parent="Theme.MaterialComponents.Dialog">
+        <item name="colorPrimary">#6c5ce7</item>
+        <item name="colorAccent">#00cec9</item>
+        <item name="android:windowBackground">#1a1a2e</item>
+        <item name="android:background">#1a1a2e</item>
+        <item name="android:colorBackground">#1a1a2e</item>
         <item name="android:textColorPrimary">#f1f5f9</item>
         <item name="android:textColorSecondary">#94a3b8</item>
     </style>

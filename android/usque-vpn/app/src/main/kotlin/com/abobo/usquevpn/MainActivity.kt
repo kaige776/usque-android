@@ -283,14 +283,17 @@ class MainActivity : Activity() {
         }
 
         fun buildFilteredList(query: String): List<AppItem> {
-            if (query.isEmpty()) return allApps
-            val q = query.lowercase()
-            return allApps.filter {
-                it.name.lowercase().contains(q) || it.packageName.lowercase().contains(q)
+            val base = if (query.isEmpty()) allApps else {
+                val q = query.lowercase()
+                allApps.filter {
+                    it.name.lowercase().contains(q) || it.packageName.lowercase().contains(q)
+                }
             }
+            // Sort: checked items first, then alphabetical by name
+            return base.sortedWith(compareByDescending<AppItem> { checkedMap[it.packageName] == true }.thenBy { it.name.lowercase() })
         }
 
-        var currentList = allApps
+        var currentList = buildFilteredList("")
 
         fun createAdapter(list: List<AppItem>): BaseAdapter {
             return object : BaseAdapter() {
@@ -310,6 +313,10 @@ class MainActivity : Activity() {
                     cb.setOnCheckedChangeListener { _, isChecked ->
                         checkedMap[app.packageName] = isChecked
                         updateSelectedCount()
+                        // Re-sort: checked items move to top
+                        val query = searchInput.text?.toString() ?: ""
+                        currentList = buildFilteredList(query)
+                        listView.adapter = createAdapter(currentList)
                     }
                     view.setOnClickListener { cb.toggle() }
                     return view
@@ -331,11 +338,13 @@ class MainActivity : Activity() {
 
         selectAllBtn.setOnClickListener {
             for (app in currentList) checkedMap[app.packageName] = true
+            currentList = buildFilteredList(searchInput.text?.toString() ?: "")
             listView.adapter = createAdapter(currentList)
             updateSelectedCount()
         }
         deselectAllBtn.setOnClickListener {
             for (app in currentList) checkedMap[app.packageName] = false
+            currentList = buildFilteredList(searchInput.text?.toString() ?: "")
             listView.adapter = createAdapter(currentList)
             updateSelectedCount()
         }
