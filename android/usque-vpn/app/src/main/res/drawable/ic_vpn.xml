@@ -1,11 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="120dp"
-    android:height="120dp"
-    android:viewportWidth="24"
-    android:viewportHeight="24">
-    <!-- Shield icon for VPN -->
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Rocket body -->
+    <path
+        android:fillColor="#a29bfe"
+        android:pathData="M54,12 C54,12 42,28 42,52 C42,60 46,68 54,72 C62,68 66,60 66,52 C66,28 54,12 54,12 Z" />
+
+    <!-- Rocket nose -->
     <path
         android:fillColor="#6c5ce7"
-        android:pathData="M12,1L3,5v6c0,5.55 3.84,10.74 9,12 5.16,-1.26 9,-6.45 9,-12V5L12,1zM12,5.6c1.32,0 2.4,1.08 2.4,2.4 0,1.32 -1.08,2.4 -2.4,2.4 -1.32,0 -2.4,-1.08 -2.4,-2.4 0,-1.32 1.08,-2.4 2.4,-2.4zM12,16.8c-2,0 -3.8,-1.02 -4.8,-2.64 0,-1.6 3.2,-2.48 4.8,-2.48 1.6,0 4.8,0.88 4.8,2.48 -1,1.62 -2.8,2.64 -4.8,2.64z" />
+        android:pathData="M54,12 C50,20 46,30 44,40 L64,40 C62,30 58,20 54,12 Z" />
+
+    <!-- Rocket window -->
+    <path
+        android:fillColor="#1a1a2e"
+        android:pathData="M54,36 m-6,0 a6,6 0,1 1,12 0 a6,6 0,1 1,-12 0" />
+
+    <!-- Window highlight -->
+    <path
+        android:fillColor="#00cec9"
+        android:pathData="M54,36 m-4,0 a4,4 0,1 1,8 0 a4,4 0,1 1,-8 0" />
+
+    <!-- Left fin -->
+    <path
+        android:fillColor="#6c5ce7"
+        android:pathData="M42,52 L30,68 L38,64 L42,60 Z" />
+
+    <!-- Right fin -->
+    <path
+        android:fillColor="#6c5ce7"
+        android:pathData="M66,52 L78,68 L70,64 L66,60 Z" />
+
+    <!-- Flame outer -->
+    <path
+        android:fillColor="#e17055"
+        android:pathData="M48,72 C48,72 50,88 54,96 C58,88 60,72 60,72 C58,76 50,76 48,72 Z" />
+
+    <!-- Flame inner -->
+    <path
+        android:fillColor="#fdcb6e"
+        android:pathData="M50,72 C50,72 52,84 54,90 C56,84 58,72 58,72 C56,75 52,75 50,72 Z" />
 </vector>
