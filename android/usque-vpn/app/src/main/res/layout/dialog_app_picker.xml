@@ -5,12 +5,11 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Search Box -->
     <EditText
         android:id="@+id/search_input"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:hint="🔍 搜索应用名称或包名"
+        android:hint="@string/app_picker_search"
         android:textSize="14sp"
         android:textColor="#ffffff"
         android:textColorHint="#888888"
@@ -22,7 +21,6 @@
         android:singleLine="true"
         android:layout_marginBottom="8dp" />
 
-    <!-- Select All / Deselect All -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,7 +33,7 @@
             android:layout_width="0dp"
             android:layout_height="36dp"
             android:layout_weight="1"
-            android:text="全选"
+            android:text="@string/app_picker_select_all"
             android:textSize="12sp"
             android:textColor="#ffffff"
             android:background="@drawable/button_secondary_background"
@@ -46,24 +44,21 @@
             android:layout_width="0dp"
             android:layout_height="36dp"
             android:layout_weight="1"
-            android:text="全不选"
+            android:text="@string/app_picker_deselect_all"
             android:textSize="12sp"
             android:textColor="#ffffff"
             android:background="@drawable/button_secondary_background"
             android:layout_marginStart="4dp" />
     </LinearLayout>
 
-    <!-- Selected Count -->
     <TextView
         android:id="@+id/selected_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="已选择 0 个应用"
         android:textSize="12sp"
         android:textColor="#aaaaaa"
         android:layout_marginBottom="8dp" />
 
-    <!-- App List -->
     <ListView
         android:id="@+id/app_list"
         android:layout_width="match_parent"
@@ -72,5 +67,4 @@
         android:divider="#333333"
         android:dividerHeight="0.5dp"
         android:fastScrollEnabled="true" />
-
 </LinearLayout>

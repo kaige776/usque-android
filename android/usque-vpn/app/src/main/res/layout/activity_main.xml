@@ -7,7 +7,6 @@
     android:padding="24dp"
     android:background="#1a1a2e">
 
-    <!-- Logo/Icon -->
     <ImageView
         android:id="@+id/logo"
         android:layout_width="120dp"
@@ -15,11 +14,10 @@
         android:src="@drawable/ic_vpn"
         android:layout_marginBottom="32dp" />
 
-    <!-- App Title -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Usque VPN"
+        android:text="@string/app_name"
         android:textSize="28sp"
         android:textStyle="bold"
         android:textColor="#ffffff"
@@ -28,7 +26,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cloudflare WARP / MASQUE"
+        android:text="@string/subtitle"
         android:textSize="14sp"
         android:textColor="#888888"
         android:layout_marginBottom="32dp" />
@@ -45,7 +43,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Status"
+            android:text="@string/label_status"
             android:textSize="12sp"
             android:textColor="#888888"
             android:textAllCaps="true"
@@ -55,7 +53,7 @@
             android:id="@+id/status_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Disconnected"
+            android:text="@string/status_disconnected"
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="#ff6b6b"
@@ -71,7 +69,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Your IP Address"
+            android:text="@string/label_ip"
             android:textSize="12sp"
             android:textColor="#888888"
             android:textAllCaps="true"
@@ -81,7 +79,7 @@
             android:id="@+id/ip_info_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Not registered"
+            android:text="@string/label_not_registered"
             android:textSize="14sp"
             android:textColor="#ffffff"
             android:layout_marginTop="4dp" />
@@ -93,12 +91,10 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp" />
 
-        <!-- Connection Settings Preview -->
         <TextView
             android:id="@+id/sni_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SNI: www.visa.cn"
             android:textSize="12sp"
             android:textColor="#aaaaaa" />
 
@@ -106,62 +102,50 @@
             android:id="@+id/endpoint_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Endpoint: 162.159.198.1"
             android:textSize="12sp"
             android:textColor="#aaaaaa"
             android:layout_marginTop="4dp" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#333333"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Mode Display -->
         <TextView
             android:id="@+id/mode_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="模式: 全局代理"
-            android:textSize="13sp"
-            android:textColor="#888888" />
-
+            android:textSize="12sp"
+            android:layout_marginTop="4dp" />
     </LinearLayout>
 
-    <!-- Mode & App Picker Buttons -->
+    <!-- Buttons Row 1: Mode + Apps -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginBottom="12dp">
+        android:layout_marginBottom="8dp">
 
         <Button
             android:id="@+id/mode_button"
             android:layout_width="0dp"
-            android:layout_height="44dp"
+            android:layout_height="48dp"
             android:layout_weight="1"
-            android:text="🔄 代理模式"
+            android:text="@string/btn_mode"
             android:textSize="13sp"
             android:textColor="#ffffff"
             android:background="@drawable/button_secondary_background"
-            android:layout_marginEnd="6dp" />
+            android:layout_marginEnd="4dp" />
 
         <Button
             android:id="@+id/app_picker_button"
             android:layout_width="0dp"
-            android:layout_height="44dp"
+            android:layout_height="48dp"
             android:layout_weight="1"
-            android:text="📱 选择应用"
+            android:text="@string/btn_select_apps"
             android:textSize="13sp"
             android:textColor="#ffffff"
             android:background="@drawable/button_secondary_background"
-            android:layout_marginStart="6dp" />
-
+            android:layout_marginStart="4dp" />
     </LinearLayout>
 
-    <!-- Main Buttons -->
+    <!-- Buttons Row 2: Language + Settings -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -170,37 +154,45 @@
         android:layout_marginBottom="16dp">
 
         <Button
-            android:id="@+id/settings_button"
+            android:id="@+id/language_button"
             android:layout_width="0dp"
-            android:layout_height="56dp"
+            android:layout_height="48dp"
             android:layout_weight="1"
-            android:text="⚙ Settings"
-            android:textSize="14sp"
+            android:text="@string/btn_language"
+            android:textSize="13sp"
             android:textColor="#ffffff"
             android:background="@drawable/button_secondary_background"
-            android:layout_marginEnd="8dp" />
+            android:layout_marginEnd="4dp" />
 
         <Button
-            android:id="@+id/connect_button"
+            android:id="@+id/settings_button"
             android:layout_width="0dp"
-            android:layout_height="56dp"
+            android:layout_height="48dp"
             android:layout_weight="1"
-            android:text="Connect"
-            android:textSize="16sp"
-            android:textStyle="bold"
+            android:text="@string/btn_settings"
+            android:textSize="13sp"
             android:textColor="#ffffff"
-            android:background="@drawable/button_background"
-            android:layout_marginStart="8dp" />
-
+            android:background="@drawable/button_secondary_background"
+            android:layout_marginStart="4dp" />
     </LinearLayout>
 
-    <!-- Footer -->
+    <!-- Connect Button -->
+    <Button
+        android:id="@+id/connect_button"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="@string/btn_connect"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#ffffff"
+        android:background="@drawable/button_background"
+        android:layout_marginBottom="16dp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Powered by usque"
+        android:text="@string/footer"
         android:textSize="12sp"
         android:textColor="#555555"
         android:layout_marginTop="32dp" />
-
 </LinearLayout>

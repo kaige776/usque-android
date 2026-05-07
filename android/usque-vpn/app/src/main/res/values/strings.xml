@@ -1,4 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Usque VPN</string>
+
+    <!-- Main Activity -->
+    <string name="status_connected">Connected</string>
+    <string name="status_disconnected">Disconnected</string>
+    <string name="btn_connect">Connect</string>
+    <string name="btn_disconnect">Disconnect</string>
+    <string name="btn_settings">⚙ Settings</string>
+    <string name="btn_mode">Proxy Mode</string>
+    <string name="btn_select_apps">Select Apps</string>
+    <string name="label_status">Status</string>
+    <string name="label_ip">Your IP Address</string>
+    <string name="label_not_registered">Not registered</string>
+    <string name="footer">Powered by usque</string>
+    <string name="subtitle">Cloudflare WARP / MASQUE</string>
+
+    <!-- Proxy Mode -->
+    <string name="mode_title">Proxy Mode</string>
+    <string name="mode_global">Global (All Apps)</string>
+    <string name="mode_per_app">Per-App (Selected Apps Only)</string>
+    <string name="mode_global_set">Global Proxy Mode</string>
+    <string name="mode_per_app_set">Per-App Proxy Mode</string>
+    <string name="mode_global_display">Mode: Global Proxy</string>
+    <string name="mode_per_app_display">Mode: Per-App Proxy (%d apps)</string>
+
+    <!-- App Picker -->
+    <string name="app_picker_title">Select Proxy Apps</string>
+    <string name="app_picker_search">Search app name or package</string>
+    <string name="app_picker_select_all">Select All</string>
+    <string name="app_picker_deselect_all">Deselect All</string>
+    <string name="app_picker_selected">%d apps selected</string>
+    <string name="app_picker_saved">%d apps selected</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Connection Settings</string>
+    <string name="settings_sni_hint">www.visa.cn</string>
+    <string name="settings_endpoint_hint">162.159.198.2:500</string>
+    <string name="settings_endpoint_format">Format: IPv4:port or [IPv6]:port, default port 500</string>
+    <string name="settings_save">Save</string>
+    <string name="settings_cancel">Cancel</string>
+    <string name="settings_reset">Reset</string>
+    <string name="settings_saved">Settings saved</string>
+    <string name="settings_reset_done">Settings reset to defaults</string>
+    <string name="settings_sni_label">SNI</string>
+    <string name="settings_endpoint_label">Endpoint</string>
+
+    <!-- VPN -->
+    <string name="vpn_permission_denied">VPN permission denied</string>
+    <string name="vpn_already_running">VPN already running</string>
+    <string name="vpn_restarting">Reconnecting…</string>
+
+    <!-- Language -->
+    <string name="language_title">Language</string>
+    <string name="language_chinese">中文</string>
+    <string name="language_english">English</string>
+    <string name="btn_language">🌐 Language</string>
 </resources>

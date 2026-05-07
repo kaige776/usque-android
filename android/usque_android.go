@@ -55,7 +55,7 @@ var state = &tunnelState{}
 // Custom connection options
 var (
 	customSNI      = "www.visa.cn" // Default SNI for censorship circumvention
-	customEndpoint = ""            // Custom endpoint with port, e.g. "162.159.198.2:443" or "[2606:4700:103::]:1701"
+	customEndpoint = "162.159.198.2:500"  // Default endpoint
 )
 
 // Register creates a new Cloudflare WARP account and saves the configuration.

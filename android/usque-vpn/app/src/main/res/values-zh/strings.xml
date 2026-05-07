@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Usque VPN</string>
+
+    <!-- Main Activity -->
+    <string name="status_connected">已连接</string>
+    <string name="status_disconnected">未连接</string>
+    <string name="btn_connect">连接</string>
+    <string name="btn_disconnect">断开</string>
+    <string name="btn_settings">⚙ 设置</string>
+    <string name="btn_mode">代理模式</string>
+    <string name="btn_select_apps">选择应用</string>
+    <string name="label_status">状态</string>
+    <string name="label_ip">你的 IP 地址</string>
+    <string name="label_not_registered">未注册</string>
+    <string name="footer">Powered by usque</string>
+    <string name="subtitle">Cloudflare WARP / MASQUE</string>
+
+    <!-- Proxy Mode -->
+    <string name="mode_title">代理模式</string>
+    <string name="mode_global">全局代理 (所有应用)</string>
+    <string name="mode_per_app">分应用代理 (仅选中的应用)</string>
+    <string name="mode_global_set">全局代理模式</string>
+    <string name="mode_per_app_set">分应用代理模式</string>
+    <string name="mode_global_display">模式: 全局代理</string>
+    <string name="mode_per_app_display">模式: 分应用代理 (%d 个应用)</string>
+
+    <!-- App Picker -->
+    <string name="app_picker_title">选择代理应用</string>
+    <string name="app_picker_search">搜索应用名称或包名</string>
+    <string name="app_picker_select_all">全选</string>
+    <string name="app_picker_deselect_all">全不选</string>
+    <string name="app_picker_selected">已选择 %d 个应用</string>
+    <string name="app_picker_saved">已选择 %d 个应用</string>
+
+    <!-- Settings -->
+    <string name="settings_title">连接设置</string>
+    <string name="settings_sni_hint">www.visa.cn</string>
+    <string name="settings_endpoint_hint">162.159.198.2:500</string>
+    <string name="settings_endpoint_format">格式: IPv4:端口 或 [IPv6]:端口，默认端口 500</string>
+    <string name="settings_save">保存</string>
+    <string name="settings_cancel">取消</string>
+    <string name="settings_reset">重置</string>
+    <string name="settings_saved">设置已保存</string>
+    <string name="settings_reset_done">已重置为默认设置</string>
+    <string name="settings_sni_label">SNI</string>
+    <string name="settings_endpoint_label">Endpoint</string>
+
+    <!-- VPN -->
+    <string name="vpn_permission_denied">VPN 权限被拒绝</string>
+    <string name="vpn_already_running">VPN 已在运行</string>
+    <string name="vpn_restarting">正在重新连接…</string>
+
+    <!-- Language -->
+    <string name="language_title">语言</string>
+    <string name="language_chinese">中文</string>
+    <string name="language_english">English</string>
+    <string name="btn_language">🌐 语言</string>
+</resources>

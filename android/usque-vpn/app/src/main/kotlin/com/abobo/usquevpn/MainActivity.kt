@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.graphics.drawable.Drawable
 import android.net.VpnService
 import android.os.Bundle
@@ -17,6 +18,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import usqueandroid.Usqueandroid
+import java.util.Locale
 
 data class AppItem(
     val name: String,
@@ -33,8 +35,11 @@ class MainActivity : Activity() {
         private const val KEY_ENDPOINT = "endpoint"
         private const val KEY_PROXY_MODE = "proxy_mode"
         private const val KEY_ALLOWED_APPS = "allowed_apps"
+        private const val KEY_LANGUAGE = "language"
         const val MODE_GLOBAL = "global"
         const val MODE_PER_APP = "per_app"
+        const val LANG_ZH = "zh"
+        const val LANG_EN = "en"
     }
 
     private lateinit var prefs: SharedPreferences
@@ -45,6 +50,20 @@ class MainActivity : Activity() {
     private lateinit var sniText: TextView
     private lateinit var endpointText: TextView
     private lateinit var modeText: TextView
+
+    override fun attachBaseContext(newBase: Context) {
+        val prefs = newBase.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val lang = prefs.getString(KEY_LANGUAGE, LANG_ZH) ?: LANG_ZH
+        super.attachBaseContext(updateLocale(newBase, lang))
+    }
+
+    private fun updateLocale(context: Context, lang: String): Context {
+        val locale = Locale(lang)
+        Locale.setDefault(locale)
+        val config = Configuration(context.resources.configuration)
+        config.setLocale(locale)
+        return context.createConfigurationContext(config)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,6 +88,7 @@ class MainActivity : Activity() {
         settingsButton.setOnClickListener { showSettingsDialog() }
         findViewById<Button>(R.id.mode_button).setOnClickListener { showModeDialog() }
         findViewById<Button>(R.id.app_picker_button).setOnClickListener { showAppPickerDialog() }
+        findViewById<Button>(R.id.language_button).setOnClickListener { showLanguageDialog() }
 
         updateUI()
     }
@@ -87,20 +107,42 @@ class MainActivity : Activity() {
         }
     }
 
-    private fun saveSettings(sni: String, endpoint: String) {
-        prefs.edit()
-            .putString(KEY_SNI, sni)
-            .putString(KEY_ENDPOINT, endpoint)
-            .apply()
+    private fun showLanguageDialog() {
+        val languages = arrayOf(
+            getString(R.string.language_chinese),
+            getString(R.string.language_english)
+        )
+        val langCodes = arrayOf(LANG_ZH, LANG_EN)
+        val currentLang = prefs.getString(KEY_LANGUAGE, LANG_ZH) ?: LANG_ZH
+        val checkedIndex = langCodes.indexOf(currentLang).coerceAtLeast(0)
+
+        AlertDialog.Builder(this)
+            .setTitle(R.string.language_title)
+            .setSingleChoiceItems(languages, checkedIndex) { dialog, which ->
+                val newLang = langCodes[which]
+                if (newLang != currentLang) {
+                    prefs.edit().putString(KEY_LANGUAGE, newLang).apply()
+                    // Recreate activity with new locale
+                    val intent = intent
+                    finish()
+                    startActivity(intent)
+                }
+                dialog.dismiss()
+            }
+            .setNegativeButton(R.string.settings_cancel, null)
+            .show()
     }
 
     private fun showModeDialog() {
         val currentMode = prefs.getString(KEY_PROXY_MODE, MODE_GLOBAL) ?: MODE_GLOBAL
-        val modes = arrayOf("全局代理 (所有应用)", "分应用代理 (仅选中的应用)")
+        val modes = arrayOf(
+            getString(R.string.mode_global),
+            getString(R.string.mode_per_app)
+        )
         val checkedIndex = if (currentMode == MODE_GLOBAL) 0 else 1
 
         AlertDialog.Builder(this)
-            .setTitle("代理模式")
+            .setTitle(R.string.mode_title)
             .setSingleChoiceItems(modes, checkedIndex) { dialog, which ->
                 val newMode = if (which == 0) MODE_GLOBAL else MODE_PER_APP
                 prefs.edit().putString(KEY_PROXY_MODE, newMode).apply()
@@ -112,16 +154,19 @@ class MainActivity : Activity() {
                         return@setSingleChoiceItems
                     }
                 }
-                Toast.makeText(this, if (which == 0) "全局代理模式" else "分应用代理模式", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,
+                    if (which == 0) getString(R.string.mode_global_set)
+                    else getString(R.string.mode_per_app_set),
+                    Toast.LENGTH_SHORT
+                ).show()
                 updateUI()
                 dialog.dismiss()
-                // Restart VPN if running to apply new mode
                 if (UsqueVpnService.isRunning) {
                     UsqueVpnService.restart(this)
                     connectButton.postDelayed({ updateUI() }, 2000)
                 }
             }
-            .setNegativeButton("取消", null)
+            .setNegativeButton(R.string.settings_cancel, null)
             .show()
     }
 
@@ -131,7 +176,6 @@ class MainActivity : Activity() {
         val intent = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER)
         val resolveInfos = pm.queryIntentActivities(intent, 0)
 
-        // Add launcher apps
         for (ri in resolveInfos) {
             if (ri.activityInfo.packageName == packageName) continue
             apps.add(AppItem(
@@ -141,13 +185,11 @@ class MainActivity : Activity() {
             ))
         }
 
-        // Also add non-launcher apps (services, etc.) that we might want to proxy
         val allApps = pm.getInstalledApplications(PackageManager.GET_META_DATA)
         val existingPkgs = apps.map { it.packageName }.toSet()
         for (app in allApps) {
             if (app.packageName == packageName) continue
             if (app.packageName in existingPkgs) continue
-            // Skip system packages that are unlikely to need proxying
             if (app.flags and ApplicationInfo.FLAG_SYSTEM != 0) continue
             apps.add(AppItem(
                 name = app.loadLabel(pm).toString(),
@@ -163,7 +205,6 @@ class MainActivity : Activity() {
         val allApps = loadAllApps()
         val allowedApps = prefs.getStringSet(KEY_ALLOWED_APPS, emptySet())?.toMutableSet() ?: mutableSetOf()
 
-        // Build custom dialog
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_app_picker, null)
         val searchInput = dialogView.findViewById<EditText>(R.id.search_input)
         val listView = dialogView.findViewById<ListView>(R.id.app_list)
@@ -171,7 +212,6 @@ class MainActivity : Activity() {
         val deselectAllBtn = dialogView.findViewById<Button>(R.id.deselect_all_btn)
         val selectedCountText = dialogView.findViewById<TextView>(R.id.selected_count)
 
-        // Track checked state
         val checkedMap = mutableMapOf<String, Boolean>()
         for (app in allApps) {
             checkedMap[app.packageName] = allowedApps.contains(app.packageName)
@@ -179,7 +219,7 @@ class MainActivity : Activity() {
 
         fun updateSelectedCount() {
             val count = checkedMap.values.count { it }
-            selectedCountText.text = "已选择 $count 个应用"
+            selectedCountText.text = getString(R.string.app_picker_selected, count)
         }
 
         fun buildFilteredList(query: String): List<AppItem> {
@@ -211,7 +251,6 @@ class MainActivity : Activity() {
                         checkedMap[app.packageName] = isChecked
                         updateSelectedCount()
                     }
-                    // Click entire row to toggle
                     view.setOnClickListener { cb.toggle() }
                     return view
                 }
@@ -221,7 +260,6 @@ class MainActivity : Activity() {
         listView.adapter = createAdapter(currentList)
         updateSelectedCount()
 
-        // Search filter
         searchInput.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -231,7 +269,6 @@ class MainActivity : Activity() {
             }
         })
 
-        // Select all / deselect all
         selectAllBtn.setOnClickListener {
             for (app in currentList) checkedMap[app.packageName] = true
             listView.adapter = createAdapter(currentList)
@@ -244,20 +281,19 @@ class MainActivity : Activity() {
         }
 
         AlertDialog.Builder(this)
-            .setTitle("选择代理应用")
+            .setTitle(R.string.app_picker_title)
             .setView(dialogView)
-            .setPositiveButton("确定") { _, _ ->
+            .setPositiveButton(R.string.settings_save) { _, _ ->
                 val selected = checkedMap.filter { it.value }.keys.toSet()
                 prefs.edit().putStringSet(KEY_ALLOWED_APPS, selected).apply()
-                Toast.makeText(this, "已选择 ${selected.size} 个应用", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.app_picker_saved, selected.size), Toast.LENGTH_SHORT).show()
                 updateUI()
-                // Restart VPN if running to apply new app list
                 if (UsqueVpnService.isRunning) {
                     UsqueVpnService.restart(this)
                     connectButton.postDelayed({ updateUI() }, 2000)
                 }
             }
-            .setNegativeButton("取消", null)
+            .setNegativeButton(R.string.settings_cancel, null)
             .show()
     }
 
@@ -276,22 +312,29 @@ class MainActivity : Activity() {
         }
 
         AlertDialog.Builder(this)
-            .setTitle("Connection Settings")
+            .setTitle(R.string.settings_title)
             .setView(dialogView)
-            .setPositiveButton("Save") { _, _ ->
+            .setPositiveButton(R.string.settings_save) { _, _ ->
                 val sni = sniInput.text.toString()
                 val endpoint = endpointInput.text.toString()
-                saveSettings(sni, endpoint)
+                prefs.edit()
+                    .putString(KEY_SNI, sni)
+                    .putString(KEY_ENDPOINT, endpoint)
+                    .apply()
                 Usqueandroid.setSNI(sni)
                 Usqueandroid.setEndpoint(endpoint)
-                Toast.makeText(this, "Settings saved", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.settings_saved, Toast.LENGTH_SHORT).show()
                 updateUI()
             }
-            .setNegativeButton("Cancel", null)
-            .setNeutralButton("Reset") { _, _ ->
-                saveSettings("www.visa.cn", "")
-                Usqueandroid.resetConnectionOptions()
-                Toast.makeText(this, "Settings reset to defaults", Toast.LENGTH_SHORT).show()
+            .setNegativeButton(R.string.settings_cancel, null)
+            .setNeutralButton(R.string.settings_reset) { _, _ ->
+                prefs.edit()
+                    .putString(KEY_SNI, "www.visa.cn")
+                    .putString(KEY_ENDPOINT, "162.159.198.2:500")
+                    .apply()
+                Usqueandroid.setSNI("www.visa.cn")
+                Usqueandroid.setEndpoint("162.159.198.2:500")
+                Toast.makeText(this, R.string.settings_reset_done, Toast.LENGTH_SHORT).show()
                 updateUI()
             }
             .show()
@@ -320,7 +363,7 @@ class MainActivity : Activity() {
             if (resultCode == RESULT_OK) {
                 onVpnPermissionGranted()
             } else {
-                Toast.makeText(this, "VPN permission denied", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.vpn_permission_denied, Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -335,14 +378,14 @@ class MainActivity : Activity() {
         val configPath = "${filesDir.absolutePath}/config.json"
 
         if (UsqueVpnService.isRunning) {
-            statusText.text = "Connected"
+            statusText.text = getString(R.string.status_connected)
             statusText.setTextColor(getColor(android.R.color.holo_green_dark))
-            connectButton.text = "Disconnect"
+            connectButton.text = getString(R.string.btn_disconnect)
             settingsButton.isEnabled = false
         } else {
-            statusText.text = "Disconnected"
+            statusText.text = getString(R.string.status_disconnected)
             statusText.setTextColor(getColor(android.R.color.holo_red_dark))
-            connectButton.text = "Connect"
+            connectButton.text = getString(R.string.btn_connect)
             settingsButton.isEnabled = true
         }
 
@@ -351,7 +394,7 @@ class MainActivity : Activity() {
             val ipv6 = Usqueandroid.getAssignedIPv6(configPath)
             ipInfoText.text = "IPv4: $ipv4\nIPv6: $ipv6"
         } else {
-            ipInfoText.text = "Not registered"
+            ipInfoText.text = getString(R.string.label_not_registered)
         }
 
         val currentSni = prefs.getString(KEY_SNI, Usqueandroid.getSNI()) ?: "www.visa.cn"
@@ -367,11 +410,11 @@ class MainActivity : Activity() {
 
         val mode = prefs.getString(KEY_PROXY_MODE, MODE_GLOBAL) ?: MODE_GLOBAL
         if (mode == MODE_GLOBAL) {
-            modeText.text = "模式: 全局代理"
+            modeText.text = getString(R.string.mode_global_display)
             modeText.setTextColor(getColor(android.R.color.holo_blue_light))
         } else {
             val count = (prefs.getStringSet(KEY_ALLOWED_APPS, emptySet()) ?: emptySet()).size
-            modeText.text = "模式: 分应用代理 ($count 个应用)"
+            modeText.text = getString(R.string.mode_per_app_display, count)
             modeText.setTextColor(getColor(android.R.color.holo_orange_light))
         }
     }
