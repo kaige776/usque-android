@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 02: 地球+盾牌 - 全球保护 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Globe circle -->
+    <path
+        android:fillColor="#a29bfe"
+        android:pathData="M54,22 m-28,0 a28,28 0,1 1,56 0 a28,28 0,1 1,-56 0" />
+
+    <!-- Globe meridian lines -->
+    <path
+        android:fillColor="none"
+        android:strokeColor="#1a1a2e"
+        android:strokeWidth="2.5"
+        android:pathData="M54,22 m-28,0 a28,28 0,1 1,56 0 a28,28 0,1 1,-56 0" />
+    <path
+        android:fillColor="none"
+        android:strokeColor="#1a1a2e"
+        android:strokeWidth="2"
+        android:pathData="M54,14 C40,22 40,70 54,78 M54,14 C68,22 68,70 54,78" />
+    <path
+        android:fillColor="none"
+        android:strokeColor="#1a1a2e"
+        android:strokeWidth="2"
+        android:pathData="M28,36 L80,36 M28,52 L80,52" />
+
+    <!-- Small shield overlay -->
+    <path
+        android:fillColor="#00cec9"
+        android:pathData="M54,60 L44,65 L44,75 C44,80 48,84 54,87 C60,84 64,80 64,75 L64,65 Z" />
+
+    <!-- Check mark on shield -->
+    <path
+        android:fillColor="#1a1a2e"
+        android:strokeColor="#1a1a2e"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M49,72 L53,76 L60,68" />
+</vector>

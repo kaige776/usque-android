@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 03: 闪电+圆环 - 速度/连接 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Outer ring -->
+    <path
+        android:fillColor="none"
+        android:strokeColor="#a29bfe"
+        android:strokeWidth="5"
+        android:pathData="M54,16 m-26,0 a26,26 0,1 1,52 0 a26,26 0,1 1,-52 0" />
+
+    <!-- Inner ring -->
+    <path
+        android:fillColor="none"
+        android:strokeColor="#a29bfe"
+        android:strokeWidth="3"
+        android:pathData="M54,16 m-18,0 a18,18 0,1 1,36 0 a18,18 0,1 1,-36 0" />
+
+    <!-- Lightning bolt -->
+    <path
+        android:fillColor="#00cec9"
+        android:pathData="M60,24 L48,52 L56,52 L48,78 L72,44 L62,44 L68,24 Z" />
+
+    <!-- Speed lines -->
+    <path
+        android:fillColor="#a29bfe"
+        android:pathData="M26,44 L36,44 L34,48 L24,48 Z" />
+    <path
+        android:fillColor="#a29bfe"
+        android:pathData="M72,56 L82,56 L84,60 L74,60 Z" />
+</vector>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 07: WiFi信号+盾牌 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Shield background -->
+    <path
+        android:fillColor="#a29bfe"
+        android:pathData="M54,14 L24,28 L24,56 C24,74 38,88 54,94 C70,88 84,74 84,56 L84,28 Z" />
+
+    <!-- Shield inner -->
+    <path
+        android:fillColor="#b8b0ff"
+        android:pathData="M54,20 L30,32 L30,56 C30,70 42,82 54,88 C54,88 54,20 54,20 Z" />
+
+    <!-- WiFi arc 1 (outer) -->
+    <path
+        android:fillColor="none"
+        android:strokeColor="#1a1a2e"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:pathData="M32,48 C38,34 70,34 76,48" />
+
+    <!-- WiFi arc 2 (middle) -->
+    <path
+        android:fillColor="none"
+        android:strokeColor="#1a1a2e"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:pathData="M38,54 C42,44 66,44 70,54" />
+
+    <!-- WiFi arc 3 (inner) -->
+    <path
+        android:fillColor="none"
+        android:strokeColor="#1a1a2e"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:pathData="M44,60 C48,54 60,54 64,60" />
+
+    <!-- WiFi dot -->
+    <path
+        android:fillColor="#00cec9"
+        android:pathData="M54,66 m-4,0 a4,4 0,1 1,8 0 a4,4 0,1 1,-8 0" />
+
+    <!-- Lock icon small -->
+    <path
+        android:fillColor="#00cec9"
+        android:pathData="M50,72 L58,72 L58,82 L50,82 Z" />
+    <path
+        android:fillColor="none"
+        android:strokeColor="#00cec9"
+        android:strokeWidth="2.5"
+        android:pathData="M52,72 L52,68 C52,65 53,63 54,63 C55,63 56,65 56,68 L56,72" />
+</vector>

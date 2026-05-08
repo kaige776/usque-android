@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 10: 火箭 - 简洁几何风格 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Exhaust trail -->
+    <path
+        android:fillColor="#6c5ce7"
+        android:pathData="M48,70 L42,100 L54,92 L66,100 L60,70 Z" />
+
+    <!-- Rocket body -->
+    <path
+        android:fillColor="#a29bfe"
+        android:pathData="M54,10 C44,10 38,24 38,48 C38,64 44,72 54,76 C64,72 70,64 70,48 C70,24 64,10 54,10 Z" />
+
+    <!-- Rocket body highlight -->
+    <path
+        android:fillColor="#b8b0ff"
+        android:pathData="M54,10 C48,10 42,24 42,48 C42,62 46,70 54,74 L54,10 Z" />
+
+    <!-- Window -->
+    <path
+        android:fillColor="#00cec9"
+        android:pathData="M54,38 m-10,0 a10,10 0,1 1,20 0 a10,10 0,1 1,-20 0" />
+    <path
+        android:fillColor="#1a1a2e"
+        android:pathData="M54,38 m-7,0 a7,7 0,1 1,14 0 a7,7 0,1 1,-14 0" />
+    <path
+        android:fillColor="#00cec9"
+        android:pathData="M54,38 m-3,0 a3,3 0,1 1,6 0 a3,3 0,1 1,-6 0" />
+
+    <!-- Fins -->
+    <path
+        android:fillColor="#6c5ce7"
+        android:pathData="M38,56 L22,74 L38,70 Z" />
+    <path
+        android:fillColor="#6c5ce7"
+        android:pathData="M70,56 L86,74 L70,70 Z" />
+
+    <!-- Nose cone accent -->
+    <path
+        android:fillColor="#00cec9"
+        android:pathData="M54,10 C54,10 51,18 51,24 C51,24 54,22 57,24 C57,18 54,10 54,10 Z" />
+
+    <!-- Stripe -->
+    <path
+        android:fillColor="#6c5ce7"
+        android:pathData="M44,58 L64,58 L62,62 L46,62 Z" />
+</vector>

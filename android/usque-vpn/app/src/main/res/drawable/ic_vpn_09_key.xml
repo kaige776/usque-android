@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 09: 密钥 - 加密 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Key ring -->
+    <path
+        android:fillColor="none"
+        android:strokeColor="#a29bfe"
+        android:strokeWidth="7"
+        android:pathData="M40,40 m-20,0 a20,20 0,1 1,40 0 a20,20 0,1 1,-40 0" />
+
+    <!-- Key ring inner -->
+    <path
+        android:fillColor="#1a1a2e"
+        android:pathData="M40,40 m-13,0 a13,13 0,1 1,26 0 a13,13 0,1 1,-26 0" />
+
+    <!-- Key shaft -->
+    <path
+        android:fillColor="#a29bfe"
+        android:pathData="M54,40 L90,76 L86,80 L50,44 Z" />
+
+    <!-- Key teeth -->
+    <path
+        android:fillColor="#a29bfe"
+        android:pathData="M78,68 L84,74 L80,78 L74,72 Z" />
+    <path
+        android:fillColor="#a29bfe"
+        android:pathData="M70,60 L76,66 L72,70 L66,64 Z" />
+
+    <!-- Key ring decoration -->
+    <path
+        android:fillColor="#00cec9"
+        android:pathData="M40,40 m-5,0 a5,5 0,1 1,10 0 a5,5 0,1 1,-10 0" />
+
+    <!-- Glow effect -->
+    <path
+        android:fillColor="#00cec9"
+        android:pathData="M90,76 m-3,0 a3,3 0,1 1,6 0 a3,3 0,1 1,-6 0" />
+</vector>

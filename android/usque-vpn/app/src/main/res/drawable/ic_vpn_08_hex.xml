@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 08: 六边形蜂巢+连接点 - 网络节点 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Center hex -->
+    <path
+        android:fillColor="#a29bfe"
+        android:pathData="M54,36 L68,45 L68,63 L54,72 L40,63 L40,45 Z" />
+
+    <!-- Top hex -->
+    <path
+        android:fillColor="#6c5ce7"
+        android:pathData="M54,8 L68,17 L68,35 L54,44 L40,35 L40,17 Z" />
+
+    <!-- Top-left hex -->
+    <path
+        android:fillColor="#6c5ce7"
+        android:pathData="M27,22 L41,31 L41,49 L27,58 L13,49 L13,31 Z" />
+
+    <!-- Top-right hex -->
+    <path
+        android:fillColor="#6c5ce7"
+        android:pathData="M81,22 L95,31 L95,49 L81,58 L67,49 L67,31 Z" />
+
+    <!-- Bottom hex -->
+    <path
+        android:fillColor="#6c5ce7"
+        android:pathData="M54,64 L68,73 L68,91 L54,100 L40,91 L40,73 Z" />
+
+    <!-- Center dot -->
+    <path
+        android:fillColor="#00cec9"
+        android:pathData="M54,54 m-6,0 a6,6 0,1 1,12 0 a6,6 0,1 1,-12 0" />
+
+    <!-- Connection dots -->
+    <path
+        android:fillColor="#00cec9"
+        android:pathData="M54,26 m-4,0 a4,4 0,1 1,8 0 a4,4 0,1 1,-8 0" />
+    <path
+        android:fillColor="#00cec9"
+        android:pathData="M54,82 m-4,0 a4,4 0,1 1,8 0 a4,4 0,1 1,-8 0" />
+    <path
+        android:fillColor="#00cec9"
+        android:pathData="M33,40 m-3,0 a3,3 0,1 1,6 0 a3,3 0,1 1,-6 0" />
+    <path
+        android:fillColor="#00cec9"
+        android:pathData="M75,40 m-3,0 a3,3 0,1 1,6 0 a3,3 0,1 1,-6 0" />
+</vector>

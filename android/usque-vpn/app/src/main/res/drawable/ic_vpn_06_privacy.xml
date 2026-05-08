@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 06: 眼睛+斜杠 - 隐私保护 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Eye shape -->
+    <path
+        android:fillColor="#a29bfe"
+        android:pathData="M12,54 C12,54 30,28 54,28 C78,28 96,54 96,54 C96,54 78,80 54,80 C30,80 12,54 12,54 Z" />
+
+    <!-- Eye highlight -->
+    <path
+        android:fillColor="#b8b0ff"
+        android:pathData="M12,54 C12,54 30,28 54,28 C54,28 30,54 54,54 C30,54 12,54 12,54 Z" />
+
+    <!-- Iris -->
+    <path
+        android:fillColor="#00cec9"
+        android:pathData="M54,54 m-16,0 a16,16 0,1 1,32 0 a16,16 0,1 1,-32 0" />
+
+    <!-- Pupil -->
+    <path
+        android:fillColor="#1a1a2e"
+        android:pathData="M54,54 m-8,0 a8,8 0,1 1,16 0 a8,8 0,1 1,-16 0" />
+
+    <!-- Pupil highlight -->
+    <path
+        android:fillColor="#ffffff"
+        android:pathData="M50,50 m-2,0 a2,2 0,1 1,4 0 a2,2 0,1 1,-4 0" />
+
+    <!-- Slash line -->
+    <path
+        android:fillColor="none"
+        android:strokeColor="#e17055"
+        android:strokeWidth="6"
+        android:strokeLineCap="round"
+        android:pathData="M22,82 L86,26" />
+</vector>
