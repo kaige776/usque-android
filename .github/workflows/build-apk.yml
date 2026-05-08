@@ -30,6 +30,8 @@ jobs:
 
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: 8.5
 
       - name: Install gomobile
         run: |
@@ -114,7 +116,7 @@ jobs:
       - name: Generate Gradle Wrapper
         run: |
           cd android/usque-vpn
-          gradle wrapper --gradle-version 8.5
+          gradle wrapper
 
       - name: Build Release APK
         run: |
